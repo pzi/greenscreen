@@ -111,4 +111,5 @@ a {
   box-shadow: 0 0 25px rgba(40,90,110,0.66);
   -webkit-box-shadow: 0 0 25px rgba(40,90,110,0.66);
   -moz-box-shadow: 0 0 25px rgba(40,90,110,0.66);
+  -webkit-animation: pulse 1s infinite ease;
 }
