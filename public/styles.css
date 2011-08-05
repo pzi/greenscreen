@@ -61,6 +61,24 @@ a {
   }
 }
 
+@-moz-keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 .success {
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #1c3800), color-stop(1, #2e5a01));
   background-image: -moz-linear-gradient(center bottom, #1c3800 0%, #2e5a01 100%);

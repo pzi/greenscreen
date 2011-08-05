@@ -1,7 +1,7 @@
 <% @projects.each do |project| %>
-  <div class="status <%= project.last_build_status %>">
+  <div class="status <%= project.last_build_status %> <%= project.activity %>">
     <div class="border">
-      <h1 class="<%= project.activity %>"><a href="<%= project.web_url%>"><%= project.name %></a></h1>
+      <h1><a href="<%= project.web_url%>"><%= project.name %></a></h1>
       <p>Build <strong><%= project.last_build_label %></strong> was a <strong><%= project.last_build_status %></strong> <span class="build_time" title="<%= project.last_build_time %>"><%= project.last_build_time %></span></p>
     </div>
   </div>

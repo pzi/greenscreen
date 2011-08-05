@@ -28,6 +28,6 @@ get '/' do
   erb :index
 end
 
-get '/partial' do
+get '/builds' do
   erb :builds
 end

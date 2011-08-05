@@ -1,24 +1,15 @@
 <html>
   <head>
     <title>Green Screen - Monitor Your Builds</title>
-    <meta http-equiv="refresh" content="15" />
     <link rel='stylesheet' href='/styles.css' type='text/css' media="screen">
-    <script type="text/javascript" src="/prototype.js"></script>
-    <script type="text/javascript" src="/date.js"></script>
-    <script type="text/javascript">
-
-      document.observe("dom:loaded", function() {
-        $$("span.build_time").each(function(element) { 
-          var ts = new Date(element.innerHTML);
-          element.innerHTML = ts.relativeTimeInWords(new Date());
-        });
-      });
-
-    </script>
+    <script type="text/javascript" src="/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="/jquery.quicksand.js"></script>
+    <script type="text/javascript" src="/jquery.timeago.js"></script>
+    <script type="text/javascript" src="/greenscreen.js"></script>
     <style type="text/css">
       .status {
-      	width: <%= 100 / @columns %>%;
-      	height: <%= 100 / @rows %>%;
+        width: <%= 100 / @columns %>%;
+        height: <%= 100 / @rows %>%;
       }
       h1 {
         margin-top: <%= 50 / @rows %>px;
@@ -27,6 +18,8 @@
     </style>
   </head>
   <body>
-    <%= partial :builds %>
+    <div id="builds">
+      <%= partial :builds %>
+    </div>
   </body>
 </html>
