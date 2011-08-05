@@ -9,22 +9,27 @@ var failSound = new buzz.sound( "/fail", {
 });
 
 function watchBuildStatus() {
-  var successfull = false;
-  var failure = false;
+  var playSuccess = false, playFailure = false;
 
   $('.project').each(function(idx, element) {
     element = $(element);
     var name = element.attr('data-name'), status = element.attr('data-status');
     if (window.builds[name] && window.builds[name] != status) {
       if (status == 'success') {
-        successfull = true;
+        playSuccess = true;
       } else if (status == 'failure') {
-        failure = true;
+        playFailure = true;
       }
     }
 
     window.builds[name] = status;
   });
+
+  if (playFailure) {
+    failSound.play();
+  } else if (playSuccess) {
+    successSound.play();
+  }
 }
 
 setInterval(function() {
