@@ -55,3 +55,5 @@ window['GreenScreen'] = GreenScreen
 
 $ ->
   GreenScreen.init()
+  $(window).resize ->
+    GreenScreen.resize()

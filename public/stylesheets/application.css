@@ -6,6 +6,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	background: #222;
 	color: #fff;
+	overflow: hidden;
 }
 
 div {

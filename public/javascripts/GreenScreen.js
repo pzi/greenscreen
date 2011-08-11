@@ -63,6 +63,9 @@
   };
   window['GreenScreen'] = GreenScreen;
   $(function() {
-    return GreenScreen.init();
+    GreenScreen.init();
+    return $(window).resize(function() {
+      return GreenScreen.resize();
+    });
   });
 }).call(this);
