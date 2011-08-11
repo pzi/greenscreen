@@ -1,0 +1,6 @@
+- @projects.each do |project|
+  .build.status{:class => [project.last_build_status, project.activity],'data-name' => project.name, 'data-status' => project.last_build_status}
+    .border
+      %h1
+        %a{:href => project.web_url}= project.name
+      %p= project.last_build_time

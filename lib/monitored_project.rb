@@ -10,5 +10,16 @@ class MonitoredProject
     @last_build_status = project.attributes["lastBuildStatus"].downcase
     @name = project.attributes["name"]
   end
+  
+  def attributes
+    {
+      :name => @name,
+      :web_url => @web_url,
+      :activitiy => @activity,
+      :last_build_label => @last_build_label,
+      :last_build_status => @last_build_status,
+      :last_build_time => @last_build_time
+    }
+  end
 
 end

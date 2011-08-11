@@ -1,0 +1,19 @@
+!!!
+%html{:lang => 'en'}
+  %head
+    %title Green Screen - Monitor Your Builds
+    %link{:rel => 'stylesheet', :href => '/stylesheets/application.css'}
+    %script{:type => 'text/javascript', :src=> '/javascripts/jquery.js'}
+    %script{:type => 'text/javascript', :src=> '/javascripts/jquery.quicksand.js'}
+    %script{:type => 'text/javascript', :src=> '/javascripts/jquery.timeago.js'}
+    %script{:type => 'text/javascript', :src=> '/javascripts/buzz.js'}
+    %script{:type => 'text/javascript', :src=> '/javascripts/icanhaz.js'}
+    %script{:type => 'text/javascript', :src=> '/javascripts/GreenScreen.js'}
+    %script#build{:type => 'text/html'}
+      .build.status{:class => '{{last_build_status}} {{activity}}','data-name' => '{{name}}', 'data-status' => '{{last_build_status}}'}
+        .border
+          %h1
+            %a{:href => '{{web_url}}'} {{name}}
+          %p{:title => '{{last_build_time}}'} {{last_build_time}}
+  %body
+    #builds

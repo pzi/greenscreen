@@ -7,7 +7,6 @@ module Greenscreen
   def self.servers
     servers = YAML.load_file 'config.yml'
     raise StandardError.new("Add the details of build server to the config.yml file to get started") unless servers
-
     servers
   end
 

@@ -2,32 +2,39 @@ require "rubygems"
 require "bundler/setup"
 
 require 'sinatra'
-require 'erb'
+require 'sinatra/respond_to'
 
 require 'lib/monitored_project'
 require 'lib/greenscreen'
 
+require 'haml'
+require 'json'
+
+Sinatra::Application.register Sinatra::RespondTo
+
 helpers do
   def partial(page, options={})
-    erb page, options.merge!(:layout => false)
+    haml page, options.merge!(:layout => false)
   end
 end
 
 before do
   @projects = Greenscreen.projects
-
-  @columns = 1.0
-  @columns = 2.0 if @projects.size > 4
-  @columns = 3.0 if @projects.size > 10
-  @columns = 4.0 if @projects.size > 21
-
-  @rows = (@projects.size / @columns).ceil
 end
 
 get '/' do
-  erb :index
+  haml :index
 end
 
 get '/builds' do
-  erb :builds
+  respond_to do |wants|
+    wants.html { haml :builds }
+    wants.json { @projects.map(&:attributes).to_json }
+  end
+end
+
+get '/templates' do
+  respond_to do |wants|
+    wants.json { json :templates }
+  end
 end
