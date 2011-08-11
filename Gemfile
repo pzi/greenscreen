@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'sinatra'
+gem 'sinatra-respond_to'
+gem 'json'
 gem 'hpricot'
 gem 'coffee-script'
 gem 'guard'
