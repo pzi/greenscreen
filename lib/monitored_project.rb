@@ -11,7 +11,7 @@ class MonitoredProject
     @name = project.attributes["name"]
   end
   
-  def attributes
+  def inspect
     {
       :name => @name,
       :web_url => @web_url,

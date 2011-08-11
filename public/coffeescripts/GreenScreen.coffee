@@ -9,9 +9,8 @@ GreenScreen = {
   templatesURL: '/templates.json'
   
   init: ->
-    ich.grabTemplates()
     @updateBuilds()
-    setInterval @updateBuilds(), 5000
+    setInterval @updateBuilds(), 500
   
   updateBuilds: ->
     $.getJSON @buildsURL, (builds)=>
@@ -22,12 +21,11 @@ GreenScreen = {
     @builds = {}
     
   draw: ->
-    container = $(@buildsContainerSelector)
-    container.empty()
+    $('ul').empty()
     $.each @builds, (index,build) ->
-      html = $(ich.build(build))
-      html.find('p').timeago()
-      container.append html
+      # html = $(ich.build(build))
+      # html.find('p').timeago()
+      # container.append html
     @resize()
     
   resize: ->

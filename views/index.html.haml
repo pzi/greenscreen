@@ -9,11 +9,14 @@
     %script{:type => 'text/javascript', :src=> '/javascripts/buzz.js'}
     %script{:type => 'text/javascript', :src=> '/javascripts/icanhaz.js'}
     %script{:type => 'text/javascript', :src=> '/javascripts/GreenScreen.js'}
-    %script#build{:type => 'text/html'}
-      .build.status{:class => '{{last_build_status}} {{activity}}','data-name' => '{{name}}', 'data-status' => '{{last_build_status}}'}
-        .border
-          %h1
-            %a{:href => '{{web_url}}'} {{name}}
-          %p{:title => '{{last_build_time}}'} {{last_build_time}}
   %body
-    #builds
+    %section.category#success
+      %h1 <span class="count">0</span> <span class="title">successes</span>
+      %ul
+    %section.category#failure
+      %h1 <span class="count">0</span> <span class="title">failures</span>
+      %ul
+    %section.category#building
+      %h1 <span class="count">0</span> <span class="title">building</span>
+      %ul
+    

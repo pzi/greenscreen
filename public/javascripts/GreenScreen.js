@@ -11,9 +11,8 @@
     playSounds: false,
     templatesURL: '/templates.json',
     init: function() {
-      ich.grabTemplates();
       this.updateBuilds();
-      return setInterval(this.updateBuilds(), 5000);
+      return setInterval(this.updateBuilds(), 500);
     },
     updateBuilds: function() {
       return $.getJSON(this.buildsURL, __bind(function(builds) {
@@ -25,15 +24,8 @@
       return this.builds = {};
     },
     draw: function() {
-      var container;
-      container = $(this.buildsContainerSelector);
-      container.empty();
-      $.each(this.builds, function(index, build) {
-        var html;
-        html = $(ich.build(build));
-        html.find('p').timeago();
-        return container.append(html);
-      });
+      $('ul').empty();
+      $.each(this.builds, function(index, build) {});
       return this.resize();
     },
     resize: function() {
