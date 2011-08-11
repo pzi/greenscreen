@@ -1,28 +1,47 @@
 (function() {
   var GreenScreen;
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   GreenScreen = {
     timeout: 5000,
-    builds: {},
-    buildsURL: '/builds',
+    builds: [],
+    buildsURL: '/builds.json',
     buildsContainerSelector: '#builds',
-    buildsSelector: '.project',
+    buildsSelector: '.build',
     buildTimeSelector: 'span.build_time',
     playSounds: false,
+    templatesURL: '/templates.json',
     init: function() {
-      return $.setInterval(updateBuilds, timeout);
+      ich.grabTemplates();
+      this.updateBuilds();
+      return setInterval(this.updateBuilds(), 5000);
     },
     updateBuilds: function() {
-      return $.get(buildsURL, draw);
-    },
-    drawBuilds: function(html) {
-      var builds;
-      builds = $(html);
-      builds.find(buildTimeSelector).timeago();
-      $(buildsContainerSelector).html(builds);
-      return checkBuildStatus();
+      return $.getJSON(this.buildsURL, __bind(function(builds) {
+        this.builds = builds;
+        return this.draw();
+      }, this));
     },
     clearBuilds: function() {
       return this.builds = {};
+    },
+    draw: function() {
+      var container;
+      container = $(this.buildsContainerSelector);
+      container.empty();
+      $.each(this.builds, function(index, build) {
+        var html;
+        html = $(ich.build(build));
+        html.find('p').timeago();
+        return container.append(html);
+      });
+      return this.resize();
+    },
+    resize: function() {
+      var height, rows, windowHeight;
+      windowHeight = window.innerHeight;
+      rows = Math.ceil(this.builds.length / 4);
+      height = Math.ceil(windowHeight / rows);
+      return $(this.buildsSelector).height(height);
     },
     checkStatus: function() {
       var failure, success;
@@ -42,7 +61,6 @@
       return this.playSounds = false;
     }
   };
-  GreenScreen.Build = {};
   window['GreenScreen'] = GreenScreen;
   $(function() {
     return GreenScreen.init();

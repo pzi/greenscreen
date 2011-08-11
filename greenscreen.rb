@@ -18,14 +18,23 @@ helpers do
   end
 end
 
+before do
+  @projects = Greenscreen.projects
+end
+
 get '/' do
   haml :index
 end
 
 get '/builds' do
-  @projects = Greenscreen.projects
   respond_to do |wants|
     wants.html { haml :builds }
     wants.json { @projects.map(&:attributes).to_json }
+  end
+end
+
+get '/templates' do
+  respond_to do |wants|
+    wants.json { json :templates }
   end
 end

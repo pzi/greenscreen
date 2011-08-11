@@ -1,27 +1,41 @@
 GreenScreen = {
   timeout: 5000
-  builds: {}
-  buildsURL: '/builds'
+  builds: []
+  buildsURL: '/builds.json'
   buildsContainerSelector: '#builds'
-  buildsSelector: '.project'
+  buildsSelector: '.build'
   buildTimeSelector: 'span.build_time'
   playSounds: false
+  templatesURL: '/templates.json'
   
   init: ->
-    $.setInterval updateBuilds, timeout
+    ich.grabTemplates()
+    @updateBuilds()
+    setInterval @updateBuilds(), 5000
   
   updateBuilds: ->
-    $.get(buildsURL, draw)
-    
-  drawBuilds: (html)->
-    builds = $(html)
-    builds.find(buildTimeSelector).timeago()
-    $(buildsContainerSelector).html builds
-    checkBuildStatus()
+    $.getJSON @buildsURL, (builds)=>
+      @builds = builds
+      @draw()
     
   clearBuilds: ->
     @builds = {}
     
+  draw: ->
+    container = $(@buildsContainerSelector)
+    container.empty()
+    $.each @builds, (index,build) ->
+      html = $(ich.build(build))
+      html.find('p').timeago()
+      container.append html
+    @resize()
+    
+  resize: ->
+    windowHeight = window.innerHeight
+    rows = Math.ceil @builds.length / 4
+    height = Math.ceil windowHeight / rows
+    $(@buildsSelector).height(height)
+      
   checkStatus: ->
     success = false
     failure = false
@@ -35,12 +49,6 @@ GreenScreen = {
     
   disableSounds: ->
     @playSounds = false
-}
-
-GreenScreen.Build = {
-  init: ->
-    @name = 
-  init()
 }
 
 window['GreenScreen'] = GreenScreen
