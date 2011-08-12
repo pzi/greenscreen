@@ -12,13 +12,8 @@
     updateBuilds: function() {
       return $.getJSON(this.buildsURL, __bind(function(builds) {
         delete builds.unknown;
-        if (this.builds.length === 0) {
-          this.builds = builds;
-          return this.draw();
-        } else {
-          this.builds = builds;
-          return this.draw();
-        }
+        this.builds = builds;
+        return this.draw();
       }, this));
     },
     clearBuilds: function() {

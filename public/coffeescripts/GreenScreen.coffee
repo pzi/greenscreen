@@ -10,13 +10,8 @@ GreenScreen = {
   updateBuilds: ->
     $.getJSON @buildsURL, (builds)=>
       delete builds.unknown
-      if @builds.length == 0
-        @builds = builds
-        @draw()
-      else
-        @builds = builds
-        @draw()
-        # @sort()
+      @builds = builds
+      @draw()
     
   clearBuilds: ->
     @builds = {}
