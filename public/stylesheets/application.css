@@ -55,7 +55,7 @@ section#building h1 {
   position: relative;
 }
 section#building h1 span { position: relative; z-index: 10; }
-section#building h1 .fade { z-index: 5; }
+section#building h1 .fade { height: 500px; z-index: 5; }
 
 section.category ul {
   color: #777;
@@ -111,7 +111,7 @@ section#building h1.pulse {
 
 section#building h1.pulse .fade {
   -webkit-animation-name: building-pulse-fade;
-  -webkit-animation-duration: 2s;
+  -webkit-animation-duration: 6s;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
 }
