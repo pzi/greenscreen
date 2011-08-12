@@ -49,13 +49,13 @@
     },
     draw: function() {
       $('ul').empty();
-      return $.each(this.builds, __bind(function(category, projects) {
-        $.each(projects, __bind(function(index, project) {
+      $.each(this.builds, __bind(function(category, projects) {
+        return $.each(projects, __bind(function(index, project) {
           return $("#" + category + " ul").append(this.buildItem(project));
         }, this));
-        this.updateCounts();
-        return this.checkForBuilding();
       }, this));
+      this.updateCounts();
+      return this.checkForBuilding();
     },
     getSuccesses: function() {
       return $('#success ul li');
@@ -67,7 +67,7 @@
       return $('#building ul li');
     },
     refresh: function() {
-      return $.each(this.builds, __bind(function(category, projects) {
+      $.each(this.builds, __bind(function(category, projects) {
         return $.each(projects, __bind(function(index, project) {
           var currentBuild, newBuild;
           currentBuild = $("li[data-id='" + project.name + "']");
@@ -77,22 +77,22 @@
               currentBuild.remove();
               newBuild.hide();
               $("#" + category + " ul").append(newBuild);
-              newBuild.fadeIn(500);
-              if (this.sounds.enabled) {
-                this.playSounds();
-              } else {
-                this.updateCounts();
-              }
-              return this.checkForBuilding();
+              return newBuild.fadeIn(500);
             }, this));
           }
         }, this));
       }, this));
+      if (this.sounds.enabled) {
+        this.playSounds();
+      } else {
+        this.updateCounts();
+      }
+      return this.checkForBuilding();
     },
     checkForBuilding: function() {
       var header;
       header = $('#building h1');
-      if (this.getBuilding.length > 0) {
+      if (this.getBuilding().length === 0) {
         return header.removeClass('pulse');
       } else {
         return header.addClass('pulse');
