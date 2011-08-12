@@ -115,10 +115,3 @@ section#building h1.pulse .fade {
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
 }
-
-section#building h1.pulse .count {
-  -webkit-animation-name: building-pulse;
-  -webkit-animation-duration: 2s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-}
