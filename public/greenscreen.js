@@ -1,10 +1,10 @@
 window.builds = {};
 
-var successSound = new buzz.sound( "/success", {
+var successSound = new Buzz.sound( "/success", {
   formats: [ "mp3", "ogg", "wav" ]
 });
 
-var failSound = new buzz.sound( "/fail", {
+var failSound = new Buzz.sound( "/fail", {
   formats: [ "mp3", "ogg", "wav" ]
 });
 

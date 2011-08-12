@@ -2,6 +2,12 @@ GreenScreen = {
   timeout: 2000
   builds: []
   buildsURL: '/builds.json'
+  counts: { 'successes': 0, 'failures': 0, 'building': 0, 'total': 0 }
+  sounds: {
+    enabled: true
+    success: new buzz.sound '/sounds/success', { formats: ['mp3','ogg','wav'] }
+    failure: new buzz.sound '/sounds/fail', { formats: ['mp3','ogg','wav'] }
+  }
   
   init: ->
     @updateBuilds()
@@ -30,9 +36,18 @@ GreenScreen = {
   draw: ->
     $('ul').empty()
     $.each @builds, (category,projects)=>
-      $("##{category} h1 .count").text projects.length
       $.each projects, (index,project)=>
         $("##{category} ul").append @buildItem(project)
+      @updateCounts()
+    
+  getSuccesses:  ->
+    $('#success ul li')
+    
+  getFailures: ->
+    $('#failure ul li')
+    
+  getBuilding: ->
+    $('#building ul li')
         
   refresh: ->
     $.each @builds, (category,projects)=>
@@ -45,7 +60,7 @@ GreenScreen = {
             newBuild.hide()
             $("##{category} ul").append newBuild
             newBuild.fadeIn 500
-            @updateCounts()
+            if @sounds.enabled @playSounds() else @updateCounts()
             
   updateCounts: ->
     $('ul').each ->
@@ -53,6 +68,17 @@ GreenScreen = {
       count = list.find('li').length
       header = list.siblings('h1:first').find('.count')
       header.text(count)
+    @counts.successes = @getSuccesses().length
+    @counts.failures = @getFailures().length
+    @counts.building = @getBuilding().length
+    @counts.total = @counts.successes + @counts.failures + @counts.building
+      
+  playSounds: ->
+    oldCounts = @counts
+    @updateCounts()
+    if oldCounts.total == @counts.total
+      @sounds.success.play() if oldCounts.successes < @counts.successes
+      @sounds.failures.play() if oldCounts.failures < @counts.failures
 }
 
 window['GreenScreen'] = GreenScreen
