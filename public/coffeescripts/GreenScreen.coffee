@@ -69,7 +69,7 @@ GreenScreen = {
             
   checkForBuilding: ->
     header = $('#building h1')
-    if getBuilding.length > 0
+    if @getBuilding.length > 0
       header.removeClass 'pulse'
     else
       header.addClass 'pulse'  
