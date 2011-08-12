@@ -52,7 +52,10 @@ section#building h1 {
   background: -webkit-linear-gradient(bottom, rgba(98,198,245,0.16) 0%,rgba(255,255,255,0) 100%);
   color: #62C6F5;
   text-shadow: 0 0 60px rgba(98,198,245,0.7);
+  position: relative;
 }
+section#building h1 span { position: relative; z-index: 10; }
+section#building h1 .fade { z-index: 5; }
 
 section.category ul {
   color: #777;
@@ -82,6 +85,15 @@ section.category ul li {
   width: 100%;
 }
 
+@-webkit-keyframes building-pulse-fade {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }  
+}
+
 @-webkit-keyframes building-pulse {
   0%, 100% {
     opacity: 0.666;
@@ -91,6 +103,17 @@ section.category ul li {
     opacity: 1;
     text-shadow: 0 0 100px rgba(98,198,255,1);
   }
+}
+
+section#building h1.pulse {
+  background: -webkit-linear-gradient(bottom, rgba(98,198,245,0.5) 0%,rgba(255,255,255,0) 100%);
+}
+
+section#building h1.pulse .fade {
+  -webkit-animation-name: building-pulse-fade;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 section#building h1.pulse .count {
