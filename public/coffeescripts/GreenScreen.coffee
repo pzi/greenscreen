@@ -39,6 +39,7 @@ GreenScreen = {
       $.each projects, (index,project)=>
         $("##{category} ul").append @buildItem(project)
       @updateCounts()
+      @checkForBuilding()
     
   getSuccesses:  ->
     $('#success ul li')
@@ -60,7 +61,18 @@ GreenScreen = {
             newBuild.hide()
             $("##{category} ul").append newBuild
             newBuild.fadeIn 500
-            if @sounds.enabled @playSounds() else @updateCounts()
+            if @sounds.enabled
+              @playSounds()
+            else
+              @updateCounts()
+            @checkForBuilding()
+            
+  checkForBuilding: ->
+    header = $('#building h1')
+    if getBuilding.length > 0
+      header.removeClass 'pulse'
+    else
+      header.addClass 'pulse'  
             
   updateCounts: ->
     $('ul').each ->

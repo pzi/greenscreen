@@ -53,7 +53,8 @@
         $.each(projects, __bind(function(index, project) {
           return $("#" + category + " ul").append(this.buildItem(project));
         }, this));
-        return this.updateCounts();
+        this.updateCounts();
+        return this.checkForBuilding();
       }, this));
     },
     getSuccesses: function() {
@@ -77,13 +78,25 @@
               newBuild.hide();
               $("#" + category + " ul").append(newBuild);
               newBuild.fadeIn(500);
-              if (this.sounds.enabled(this.playSounds())) {} else {
-                return this.updateCounts();
+              if (this.sounds.enabled) {
+                this.playSounds();
+              } else {
+                this.updateCounts();
               }
+              return this.checkForBuilding();
             }, this));
           }
         }, this));
       }, this));
+    },
+    checkForBuilding: function() {
+      var header;
+      header = $('#building h1');
+      if (getBuilding.length > 0) {
+        return header.removeClass('pulse');
+      } else {
+        return header.addClass('pulse');
+      }
     },
     updateCounts: function() {
       $('ul').each(function() {

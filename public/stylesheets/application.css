@@ -81,3 +81,21 @@ section.category ul li {
   z-index: 10;
   width: 100%;
 }
+
+@-webkit-keyframes building-pulse {
+  0%, 100% {
+    opacity: 0.666;
+    text-shadow: 0 0 100px rgba(98,198,245,0.2);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 100px rgba(98,198,255,1);
+  }
+}
+
+section#building h1.pulse .count {
+  -webkit-animation-name: building-pulse;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
