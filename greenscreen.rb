@@ -29,12 +29,6 @@ end
 get '/builds' do
   respond_to do |wants|
     wants.html { haml :builds }
-    wants.json { @projects.map(&:attributes).to_json }
-  end
-end
-
-get '/templates' do
-  respond_to do |wants|
-    wants.json { json :templates }
+    wants.json { @projects.to_json }
   end
 end

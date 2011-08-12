@@ -1,59 +1,37 @@
 GreenScreen = {
-  timeout: 5000
+  timeout: 2000
   builds: []
   buildsURL: '/builds.json'
-  buildsContainerSelector: '#builds'
-  buildsSelector: '.build'
-  buildTimeSelector: 'span.build_time'
-  playSounds: false
-  templatesURL: '/templates.json'
   
   init: ->
-    ich.grabTemplates()
     @updateBuilds()
-    setInterval @updateBuilds(), 5000
+    setInterval($.proxy(@updateBuilds,@), @timeout)
   
   updateBuilds: ->
     $.getJSON @buildsURL, (builds)=>
+      delete builds.unknown
       @builds = builds
       @draw()
     
   clearBuilds: ->
     @builds = {}
     
+  buildItem: (obj) ->
+    item = $('<li>')
+    item.text obj.name
+    item.attr 'title', obj.last_build_time
+    item.attr 'data-id', obj.name
+    item.attr 'data-status', obj.last_build_status
+    
   draw: ->
-    container = $(@buildsContainerSelector)
-    container.empty()
-    $.each @builds, (index,build) ->
-      html = $(ich.build(build))
-      html.find('p').timeago()
-      container.append html
-    @resize()
-    
-  resize: ->
-    windowHeight = window.innerHeight
-    rows = Math.ceil @builds.length / 4
-    height = Math.ceil windowHeight / rows
-    $(@buildsSelector).height(height)
-      
-  checkStatus: ->
-    success = false
-    failure = false
-    $(buildsSelector).each (index, element) ->
-      element = $(element)
-      name = element.attr 'data-name'
-      status = element.attr 'data-status'
-    
-  enableSounds: ->
-    @playSounds = true
-    
-  disableSounds: ->
-    @playSounds = false
+    $('ul').empty()
+    $.each @builds, (category,projects)=>
+      $("##{category} h1 .count").text projects.length
+      $.each projects, (index,project)=>
+        $("##{category} ul").append @buildItem(project)
 }
 
 window['GreenScreen'] = GreenScreen
 
 $ ->
   GreenScreen.init()
-  $(window).resize ->
-    GreenScreen.resize()
