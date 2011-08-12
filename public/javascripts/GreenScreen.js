@@ -5,6 +5,21 @@
     timeout: 2000,
     builds: [],
     buildsURL: '/builds.json',
+    counts: {
+      'successes': 0,
+      'failures': 0,
+      'building': 0,
+      'total': 0
+    },
+    sounds: {
+      enabled: true,
+      success: new buzz.sound('/sounds/success', {
+        formats: ['mp3', 'ogg', 'wav']
+      }),
+      failure: new buzz.sound('/sounds/fail', {
+        formats: ['mp3', 'ogg', 'wav']
+      })
+    },
     init: function() {
       this.updateBuilds();
       return setInterval($.proxy(this.updateBuilds, this), this.timeout);
@@ -35,11 +50,21 @@
     draw: function() {
       $('ul').empty();
       return $.each(this.builds, __bind(function(category, projects) {
-        $("#" + category + " h1 .count").text(projects.length);
-        return $.each(projects, __bind(function(index, project) {
+        $.each(projects, __bind(function(index, project) {
           return $("#" + category + " ul").append(this.buildItem(project));
         }, this));
+        this.updateCounts();
+        return this.checkForBuilding();
       }, this));
+    },
+    getSuccesses: function() {
+      return $('#success ul li');
+    },
+    getFailures: function() {
+      return $('#failure ul li');
+    },
+    getBuilding: function() {
+      return $('#building ul li');
     },
     refresh: function() {
       return $.each(this.builds, __bind(function(category, projects) {
@@ -53,20 +78,51 @@
               newBuild.hide();
               $("#" + category + " ul").append(newBuild);
               newBuild.fadeIn(500);
-              return this.updateCounts();
+              if (this.sounds.enabled) {
+                this.playSounds();
+              } else {
+                this.updateCounts();
+              }
+              return this.checkForBuilding();
             }, this));
           }
         }, this));
       }, this));
     },
+    checkForBuilding: function() {
+      var header;
+      header = $('#building h1');
+      if (getBuilding.length > 0) {
+        return header.removeClass('pulse');
+      } else {
+        return header.addClass('pulse');
+      }
+    },
     updateCounts: function() {
-      return $('ul').each(function() {
+      $('ul').each(function() {
         var count, header, list;
         list = $(this);
         count = list.find('li').length;
         header = list.siblings('h1:first').find('.count');
         return header.text(count);
       });
+      this.counts.successes = this.getSuccesses().length;
+      this.counts.failures = this.getFailures().length;
+      this.counts.building = this.getBuilding().length;
+      return this.counts.total = this.counts.successes + this.counts.failures + this.counts.building;
+    },
+    playSounds: function() {
+      var oldCounts;
+      oldCounts = this.counts;
+      this.updateCounts();
+      if (oldCounts.total === this.counts.total) {
+        if (oldCounts.successes < this.counts.successes) {
+          this.sounds.success.play();
+        }
+        if (oldCounts.failures < this.counts.failures) {
+          return this.sounds.failures.play();
+        }
+      }
     }
   };
   window['GreenScreen'] = GreenScreen;
