@@ -16,8 +16,8 @@ module Greenscreen
       projects = xml.elements['//Projects']
       projects.each do |project|
         project = MonitoredProject.new(project)
-        collection[project.last_build_status] = Array.new if collection[project.last_build_status].nil?
-        collection[project.last_build_status] << project.inspect
+        collection[project.status] = Array.new if collection[project.status].nil?
+        collection[project.status] << project.inspect
       end
     end
     collection

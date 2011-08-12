@@ -12,8 +12,13 @@
     updateBuilds: function() {
       return $.getJSON(this.buildsURL, __bind(function(builds) {
         delete builds.unknown;
-        this.builds = builds;
-        return this.draw();
+        if (this.builds.length === 0) {
+          this.builds = builds;
+          return this.draw();
+        } else {
+          this.builds = builds;
+          return this.refresh();
+        }
       }, this));
     },
     clearBuilds: function() {
@@ -25,7 +30,7 @@
       item.text(obj.name);
       item.attr('title', obj.last_build_time);
       item.attr('data-id', obj.name);
-      return item.attr('data-status', obj.last_build_status);
+      return item.attr('data-status', obj.status);
     },
     draw: function() {
       $('ul').empty();
@@ -35,6 +40,33 @@
           return $("#" + category + " ul").append(this.buildItem(project));
         }, this));
       }, this));
+    },
+    refresh: function() {
+      return $.each(this.builds, __bind(function(category, projects) {
+        return $.each(projects, __bind(function(index, project) {
+          var currentBuild, newBuild;
+          currentBuild = $("li[data-id='" + project.name + "']");
+          newBuild = this.buildItem(project);
+          if (currentBuild.attr('data-status') !== newBuild.attr('data-status')) {
+            return currentBuild.fadeOut(500, __bind(function() {
+              currentBuild.remove();
+              newBuild.hide();
+              $("#" + category + " ul").append(newBuild);
+              newBuild.fadeIn(500);
+              return this.updateCounts();
+            }, this));
+          }
+        }, this));
+      }, this));
+    },
+    updateCounts: function() {
+      return $('ul').each(function() {
+        var count, header, list;
+        list = $(this);
+        count = list.find('li').length;
+        header = list.siblings('h1:first').find('.count');
+        return header.text(count);
+      });
     }
   };
   window['GreenScreen'] = GreenScreen;
