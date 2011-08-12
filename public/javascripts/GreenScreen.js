@@ -92,7 +92,7 @@
     checkForBuilding: function() {
       var header;
       header = $('#building h1');
-      if (getBuilding.length > 0) {
+      if (this.getBuilding.length > 0) {
         return header.removeClass('pulse');
       } else {
         return header.addClass('pulse');
