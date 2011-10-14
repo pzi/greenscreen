@@ -27,8 +27,7 @@ links to your build servers.  It contains instructions for how you can add the.
  GreenScreen has been tested with Hudson, but can be used with any continuous 
 integration server that conforms to the multiple project summary reporting 
 standard described here: 
-http://confluence.public.thoughtworks.org/display/CI/Multiple+Project+Summary+Re
-porting+Standard
+http://confluence.public.thoughtworks.org/display/CI/Multiple+Project+Summary+Reporting+Standard
 
 This pretty much means that any of the flavours of cruise control should work 
 too.
