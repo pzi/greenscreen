@@ -36,7 +36,7 @@ too.
 Once you've got your configuration, you can start GreenScreen as follows:
 
 ```bash
-ruby greenscreen.rb
+$ ruby greenscreen.rb
 ```
 
 Then go to this URL in your browser: http://localhost:4567
