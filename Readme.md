@@ -7,10 +7,12 @@ team can see the build status from anywhere in the room.
 
 ## Getting Started
 
-GreenScreen depends on Sinatra to run.  You can install it via rubygems:
+GreenScreen depends on Sinatra to run.  You can install it by bundling
+in the app:
 
 ```bash
-$ sudo gem install sinatra
+$ gem install bundler // If you haven't already
+$ bundle install
 ```
 
 To get the GreenScreen application itself, you can clone it from git here:
@@ -20,7 +22,7 @@ $ git clone git://github.com/martinjandrews/greenscreen.git
 ```
 
 Or download the project by clicking on the 'download' link on this page: 
-http://github.com/martinjandrews/greenscreen/
+http://github.com/keithpitt/greenscreen/
 
 Once you've got GreenScreen on your machine, edit the config.yml file to add 
 links to your build servers.  It contains instructions for how you can add the. 
