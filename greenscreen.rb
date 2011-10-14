@@ -4,6 +4,8 @@ require "bundler/setup"
 require 'sinatra'
 require 'erb'
 
+$:.push File.expand_path(File.join(__FILE__, '..'))
+
 require 'lib/monitored_project'
 require 'lib/greenscreen'
 
