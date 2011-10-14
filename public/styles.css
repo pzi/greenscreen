@@ -47,6 +47,14 @@ a {
 	overflow: hidden;
 }
 
+.project {
+  display: table;
+}
+
+.border {
+  display:table-cell; vertical-align:middle;
+}
+
 .border {
   height: 100%;
   border: 1px solid rgba(255,255,255,0.1);
