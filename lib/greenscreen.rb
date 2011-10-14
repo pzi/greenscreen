@@ -1,5 +1,4 @@
-require 'rexml/document'
-require 'hpricot'
+require 'nokogiri'
 require 'open-uri'
 
 module Greenscreen
@@ -15,10 +14,9 @@ module Greenscreen
     collection = []
 
     servers.each do |server|
-      xml = REXML::Document.new(open(server["url"], :http_basic_authentication=>[server["username"], server["password"]]))
-      projects = xml.elements["//Projects"]
+      doc = Nokogiri::XML(open(server["url"], :http_basic_authentication=>[server["username"], server["password"]]))
 
-      projects.each do |project|
+      doc.xpath("//Projects/Project").each do |project|
         monitored_project = MonitoredProject.new(project)
         if server["jobs"]
           if server["jobs"].detect { |job| job == monitored_project.name }
