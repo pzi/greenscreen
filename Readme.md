@@ -11,7 +11,7 @@ GreenScreen depends on Sinatra to run.  You can install it by bundling
 in the app:
 
 ```bash
-$ gem install bundler // If you haven't already
+$ gem install bundler # If you haven't already
 $ bundle install
 ```
 
