@@ -38,3 +38,8 @@ end
 get '/builds' do
   erb :builds
 end
+
+get '/tenderstats' do
+  @tender_stats = Tender.stats
+  erb :tender
+end

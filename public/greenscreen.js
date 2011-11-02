@@ -33,6 +33,12 @@ function watchBuildStatus() {
 }
 
 setInterval(function() {
+  $.get('/tenderstats', function(html) {
+    $('#tender').html(html);
+  });
+}, (1000 * 60 * 60)); // udpate on the hour
+
+setInterval(function() {
   $.get('/builds', function(html) {
     var updated = $(html);
     updated.find('span.build_time').timeago();
