@@ -8,6 +8,7 @@ $:.push File.expand_path(File.join(__FILE__, '..'))
 
 require 'lib/monitored_project'
 require 'lib/greenscreen'
+require 'lib/tender'
 
 helpers do
   def partial(page, options={})
@@ -24,9 +25,13 @@ before do
   @columns = 4.0 if @projects.size > 21
 
   @rows = (@projects.size / @columns).ceil
+
+
+  
 end
 
 get '/' do
+  @tender_stats = Tender.stats
   erb :index
 end
 

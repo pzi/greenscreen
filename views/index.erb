@@ -16,9 +16,17 @@
         margin-top: <%= 50 / @rows %>px;
         font-size: <%= 100 / @rows * 3 %>px;
       }
+
+      #tender { font-size: 20px; padding: 3px; color: #aaa;}
+      #tender span { padding: 5px;}
+      #tender .current { color: #aaf; }
+      #tender .recent { color: red; }
     </style>
   </head>
   <body>
+    <div id="tender">
+      <%= partial :tender %>
+    </div>
     <div id="builds">
       <%= partial :builds %>
     </div>
