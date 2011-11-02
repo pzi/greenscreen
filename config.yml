@@ -12,7 +12,9 @@
 #   url: http://localhost:8080/cc.xml
 #   username: hudson-user
 #   password: hudson-password
-
+#   tender:
+#     sub_domain: domain
+#     key: 11111111
 
 # If you have a lot of jobs, and you only want to show the status of some of them, 
 # try listing them explicitly
