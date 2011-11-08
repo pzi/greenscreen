@@ -31,7 +31,7 @@ class Tender
     unless response.body.nil?
       p = Crack::JSON.parse(response.body)
       discussions = p["discussions"]
-      discussions.count
+      discussions.select {|d| d["cached_queue_list"].empty?}.count
     else
       0
     end    
