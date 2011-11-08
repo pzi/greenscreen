@@ -1,5 +1,4 @@
 <% @tender_stats.each do |stat| %>
   <span>
-    <span><%= stat[:name] %></span> 
-    (<span class='current'><%= stat[:current] %></span>|<span class='recent'>+<%= stat[:recent] %></span>)</span>
+    <span><%= stat[:name] %></span>(<span class='recent'><%= stat[:total] %></span>)</span>
 <% end %>

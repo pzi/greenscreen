@@ -17,7 +17,7 @@ class Tender
 
     pending_count = self.pending(domain, key)
     queue_array = self.queues(domain, key)
-    queue_array.push({:name=>"Pending", :current=>0, :recent=>pending_count, :closed=>0})
+    queue_array.push({:name=>"Unassigned", :current=>0, :total=>pending_count, :closed=>0})
     queue_array
   end
 
@@ -50,11 +50,22 @@ class Tender
       named_queues = p["named_queues"]
       queue_list = []
       named_queues.each do |q|
-        queue_list.push({:name=>q["name"], :current=>q["open_discussions_count"], :recent => q["new_discussions_count"], :closed => q["resolved_discussions_count"]})
+        queue_total = self.queue_detail(q["discussions_href"].gsub(/\{.*\}/,''), key)
+        queue_list.push({:name=>q["name"], :total=>queue_total})
       end
     else
       queue_list = []
     end    
     queue_list
+  end
+
+  def self.queue_detail(url, key)
+    uri = URI.parse(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request.initialize_http_header({"Accept" => "application/vnd.tender-v1+json", "X-Tender-Auth" => key})
+    response = http.request(request)    
+    r = Crack::JSON.parse(response.body)
+    r["total"]
   end
 end
