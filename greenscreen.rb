@@ -8,7 +8,6 @@ $:.push File.expand_path(File.join(__FILE__, '..'))
 
 require 'lib/monitored_project'
 require 'lib/greenscreen'
-require 'lib/tender'
 
 helpers do
   def partial(page, options={})
@@ -31,15 +30,9 @@ before do
 end
 
 get '/' do
-  @tender_stats = Tender.stats
   erb :index
 end
 
 get '/builds' do
   erb :builds
-end
-
-get '/tenderstats' do
-  @tender_stats = Tender.stats
-  erb :tender
 end
