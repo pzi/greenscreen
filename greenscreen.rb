@@ -21,12 +21,12 @@ before do
   @columns = 1.0
   @columns = 2.0 if @projects.size > 4
   @columns = 3.0 if @projects.size > 10
-  @columns = 4.0 if @projects.size > 21
+  @columns = 4.0 if @projects.size > 20
 
   @rows = (@projects.size / @columns).ceil
 
 
-  
+
 end
 
 get '/' do

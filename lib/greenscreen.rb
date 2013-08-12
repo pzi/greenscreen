@@ -1,5 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
+require 'yaml'
+
 
 module Greenscreen
 
@@ -14,6 +16,7 @@ module Greenscreen
     collection = []
 
     servers.each do |server|
+
       doc = Nokogiri::XML(open(server["url"], :http_basic_authentication=>[server["username"], server["password"]]))
 
       doc.xpath("//Projects/Project").each do |project|
